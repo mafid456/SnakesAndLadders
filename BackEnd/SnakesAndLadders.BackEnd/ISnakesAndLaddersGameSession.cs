@@ -16,6 +16,12 @@ namespace SnakesAndLadders.BackEnd
         /// </summary>
         /// <remarks>This array provides the data of each game board tile.</remarks>
         BoardTile[] GameBoardData { get; }
+
+        /// <summary>
+        /// Gets if the session is initialized.
+        /// </summary>
+        /// <remarks>You must call <see cref="Initialize(int)"/> function in order to proper initializes the game session.</remarks>
+        bool IsInitialized { get; }
         #endregion
 
         #region Events

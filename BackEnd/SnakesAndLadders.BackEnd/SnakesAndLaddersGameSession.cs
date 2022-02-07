@@ -15,6 +15,7 @@ namespace SnakesAndLadders.BackEnd
 
         #region Properties
         public BoardTile[] GameBoardData => _board.Tiles;
+        public bool IsInitialized => this._players is null;
         #endregion
 
         #region Events
@@ -32,16 +33,24 @@ namespace SnakesAndLadders.BackEnd
         #region Methods & Functions
         public void Initialize(int players)
         {
+            if (players < 1)
+                throw SnakesAndLaddersGameSession.FormatNegativePlayersNumberException(callerMethod: nameof(this.Initialize), argumentName: nameof(players), argumentValue: players);
+
             this.CreatePlayers(players);
             this.Reset();
         }
 
-        public IPlayerToken[] GetPlayers() => this._players.Clone() as IPlayerToken[];
+        public IPlayerToken[] GetPlayers()
+        {
+            return !this.IsInitialized
+                ? this._players.Clone() as IPlayerToken[]
+                : throw SnakesAndLaddersGameSession.FormatGameSessionNotInitializedException(callerMethod: nameof(this.GetCurrentPlayerIndex));
+        }
 
         public int GetCurrentPlayerIndex(out int position)
         {
-            if (this._players is null)
-                throw SnakesAndLaddersGameSession.FormatGameSessionNotInitializedException(nameof(this.GetCurrentPlayerIndex));
+            if (this.IsInitialized)
+                throw SnakesAndLaddersGameSession.FormatGameSessionNotInitializedException(callerMethod: nameof(this.GetCurrentPlayerIndex));
 
             IPlayerToken playerData = this.GetCurrentPlayerData(out int playerIndex);
             position = playerData.Position;
@@ -51,8 +60,8 @@ namespace SnakesAndLadders.BackEnd
 
         public int GetNextPlayerIndex(out int position)
         {
-            if (this._players is null)
-                throw SnakesAndLaddersGameSession.FormatGameSessionNotInitializedException(nameof(this.GetNextPlayerIndex));
+            if (this.IsInitialized)
+                throw SnakesAndLaddersGameSession.FormatGameSessionNotInitializedException(callerMethod: nameof(this.GetNextPlayerIndex));
 
             IPlayerToken playerData = this.GetPlayerData(this._currentPlayerArrayIndex, out int playerIndex);
             position = playerData.Position;
@@ -62,8 +71,8 @@ namespace SnakesAndLadders.BackEnd
 
         public PlayerMovementResult PlayTurn()
         {
-            if (this._players is null)
-                throw SnakesAndLaddersGameSession.FormatGameSessionNotInitializedException(nameof(this.PlayTurn));
+            if (this.IsInitialized)
+                throw SnakesAndLaddersGameSession.FormatGameSessionNotInitializedException(callerMethod: nameof(this.PlayTurn));
 
             PlayerMovementResult result = this.PlayCurrentPlayer();
             this._currentPlayerArrayIndex = this.UpdateCurrentPlayerArrayIndex(this._currentPlayerArrayIndex);
@@ -120,8 +129,15 @@ namespace SnakesAndLadders.BackEnd
 
         private static InvalidOperationException FormatGameSessionNotInitializedException(string callerMethod)
         {
-            return new($"{nameof(ISnakesAndLaddersGameSession)}::{callerMethod}: The game session is not initialized yet. You must call {nameof(ISnakesAndLaddersGameSession.Initialize)}() method before start to play.");
+            return new($"{FormatExceptionMessageHeader(callerMethod)}: The game session is not initialized yet. You must call {nameof(ISnakesAndLaddersGameSession.Initialize)}() method before start to play.");
         }
+
+        private static ArgumentException FormatNegativePlayersNumberException(string callerMethod, string argumentName, int argumentValue)
+        {
+            return new($"{FormatExceptionMessageHeader(callerMethod)}: The \"{argumentName}\" argument must be value over zero ({argumentName}: {argumentValue}).");
+        }
+
+        private static string FormatExceptionMessageHeader(string callerMethodName) => $"{nameof(ISnakesAndLaddersGameSession)}::{callerMethodName}";
         #endregion
 
         #region Event listeners
