@@ -29,16 +29,18 @@ namespace SnakesAndLadders.BackEnd.Services
         #endregion
 
         #region Methods & Functions
-        public void Move(int tiles)
+        public PlayerMovementResult Move(int tiles)
         {
             if (tiles < 1)
                 throw PlayerToken.FormatNegativeTilesToMoveException(argumentName: nameof(tiles), argumentValue: tiles);
 
             this.Position += tiles;
 
-            this.FixPositionIfPlayerIsAheadOfFinishTile();
+            this.FixPositionIfPlayerIsAheadOfFinishTile(out int arrivedTileNumber, out BoardTileTypes arrivedTileType);
             this.JumpToTargetTileIfPlayerIsOnSnakeOrLadderTile();
             this.NotifyWinEventIfPlayerIsOnFinishTile();
+
+            return new PlayerMovementResult(diceResult: tiles, arrivedTileNumber, arrivedTileType, currentTileNumber: this.Position);
         }
 
         public void Reset() => this.Position = BoardConstants.START_TILE_NUMBER;
@@ -54,10 +56,13 @@ namespace SnakesAndLadders.BackEnd.Services
             return targetTileNumber > 0;
         }
 
-        private void FixPositionIfPlayerIsAheadOfFinishTile()
+        private void FixPositionIfPlayerIsAheadOfFinishTile(out int arrivedTileNumber, out BoardTileTypes arrivedTileType)
         {
             if (this.Position > BoardConstants.FINISH_TILE_NUMBER)
                 this.Position = BoardConstants.FINISH_TILE_NUMBER - (this.Position - BoardConstants.FINISH_TILE_NUMBER);
+
+            arrivedTileNumber = this.Position;
+            arrivedTileType = this._board.GetTileByNumberPosition(this.Position).type;
         }
 
         private void JumpToTargetTileIfPlayerIsOnSnakeOrLadderTile()

@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SnakesAndLadders.BackEnd.Contracts.Constants;
+using SnakesAndLadders.BackEnd.Contracts.Enums;
+using SnakesAndLadders.BackEnd.Contracts.Models;
 using SnakesAndLadders.BackEnd.Contracts.Services;
 using SnakesAndLadders.BackEnd.Services;
 using System;
@@ -140,6 +142,25 @@ namespace SnakesAndLadders.Tests
             this._playerToken.Move(--bottomLadderTile);
 
             Assert.AreEqual(expectedPosition, this._playerToken.Position);
+        }
+
+        [DataTestMethod]
+        [DataRow(2, 3, false, 3, BoardTileTypes.Normal)]
+        [DataRow(1, 38, true, 2, BoardTileTypes.Ladder)]
+        [DataRow(15, 6, true, 16, BoardTileTypes.Snake)]
+        public void TestPlayerMovementResultAfterMove(
+            int moves,
+            int expectedPosition,
+            bool expectedPlayerArrivesToSnakeOrLadderTile,
+            int expectedArrivedTileNumber,
+            BoardTileTypes expectedArrivedTileType)
+        {
+            PlayerMovementResult result = this._playerToken.Move(moves);
+
+            Assert.AreEqual(expectedPosition, result.currentTileNumber);
+            Assert.AreEqual(expectedPlayerArrivesToSnakeOrLadderTile, result.IsPlayerArrivedOnSnakeOrLadderTile);
+            Assert.AreEqual(expectedArrivedTileNumber, result.arrivedTileNumber);
+            Assert.AreEqual(expectedArrivedTileType, result.arrivedTileType);
         }
         #endregion
 

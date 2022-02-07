@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SnakesAndLadders.BackEnd.Contracts.Enums;
+using SnakesAndLadders.BackEnd.Contracts.Models;
+using System;
 
 namespace SnakesAndLadders.BackEnd.Contracts.Services
 {
@@ -27,8 +29,10 @@ namespace SnakesAndLadders.BackEnd.Contracts.Services
         /// Moves the token a number of tiles in the board.
         /// </summary>
         /// <param name="tiles">Number of tiles that the token must be moved.</param>
+        /// <returns>Returns the stats of the player movement, that include the dice roll result, if the player token has arrived to a <see cref="BoardTileTypes.Snake"/> head 
+        /// or bottom <see cref="BoardTileTypes.Ladder"/> tile, his position, and the final tile position.</returns>
         /// <remarks>Use this method when needs to move the token using a roll dice result.</remarks>
-        void Move(int tiles);
+        PlayerMovementResult Move(int tiles);
 
         /// <summary>
         /// Resets the player token to the start tile in the board.
