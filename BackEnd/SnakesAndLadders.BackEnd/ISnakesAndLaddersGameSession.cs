@@ -1,4 +1,5 @@
 ﻿using SnakesAndLadders.BackEnd.Contracts.Models;
+using SnakesAndLadders.BackEnd.Contracts.Services;
 using System;
 
 namespace SnakesAndLadders.BackEnd
@@ -22,6 +23,11 @@ namespace SnakesAndLadders.BackEnd
         /// </summary>
         /// <remarks>You must call <see cref="Initialize(int)"/> function in order to proper initializes the game session.</remarks>
         bool IsInitialized { get; }
+
+        /// <summary>
+        /// Gets the number of players of this session.
+        /// </summary>
+        int PlayersCount { get; }
         #endregion
 
         #region Events

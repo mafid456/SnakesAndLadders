@@ -15,7 +15,16 @@ namespace SnakesAndLadders.BackEnd
 
         #region Properties
         public BoardTile[] GameBoardData => _board.Tiles;
-        public bool IsInitialized => this._players is null;
+        public bool IsInitialized => this._players is not null;
+        public int PlayersCount
+        {
+            get
+            {
+                return this.IsInitialized
+                    ? this._players.Length
+                    : throw SnakesAndLaddersGameSession.FormatGameSessionNotInitializedException(callerMethod: nameof(this.PlayersCount));
+            }
+        }
         #endregion
 
         #region Events
@@ -40,16 +49,9 @@ namespace SnakesAndLadders.BackEnd
             this.Reset();
         }
 
-        public IPlayerToken[] GetPlayers()
-        {
-            return !this.IsInitialized
-                ? this._players.Clone() as IPlayerToken[]
-                : throw SnakesAndLaddersGameSession.FormatGameSessionNotInitializedException(callerMethod: nameof(this.GetCurrentPlayerIndex));
-        }
-
         public int GetCurrentPlayerIndex(out int position)
         {
-            if (this.IsInitialized)
+            if (!this.IsInitialized)
                 throw SnakesAndLaddersGameSession.FormatGameSessionNotInitializedException(callerMethod: nameof(this.GetCurrentPlayerIndex));
 
             IPlayerToken playerData = this.GetCurrentPlayerData(out int playerIndex);
@@ -60,7 +62,7 @@ namespace SnakesAndLadders.BackEnd
 
         public int GetNextPlayerIndex(out int position)
         {
-            if (this.IsInitialized)
+            if (!this.IsInitialized)
                 throw SnakesAndLaddersGameSession.FormatGameSessionNotInitializedException(callerMethod: nameof(this.GetNextPlayerIndex));
 
             IPlayerToken playerData = this.GetPlayerData(this._currentPlayerArrayIndex, out int playerIndex);
@@ -71,7 +73,7 @@ namespace SnakesAndLadders.BackEnd
 
         public PlayerMovementResult PlayTurn()
         {
-            if (this.IsInitialized)
+            if (!this.IsInitialized)
                 throw SnakesAndLaddersGameSession.FormatGameSessionNotInitializedException(callerMethod: nameof(this.PlayTurn));
 
             PlayerMovementResult result = this.PlayCurrentPlayer();
@@ -98,7 +100,7 @@ namespace SnakesAndLadders.BackEnd
         {
             this._players = new IPlayerToken[players];
 
-            for (int i = 0; i < this._players.Length; i++)
+            for (int i = 0; i < this.PlayersCount; i++)
                 this.CreatePlayer(i);
         }
 
@@ -121,7 +123,7 @@ namespace SnakesAndLadders.BackEnd
 
         private int UpdateCurrentPlayerArrayIndex(int currentArrayIndex)
         {
-            if (++currentArrayIndex == this._players.Length)
+            if (++currentArrayIndex == this.PlayersCount)
                 currentArrayIndex = 0;
 
             return currentArrayIndex;
