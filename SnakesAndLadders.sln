@@ -13,11 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnakesAndLadders.FrontEnd.T
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5E406EA8-8DB6-400A-B893-893909670341}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnakesAndLadders.Tests", "Tests\SnakesAndLadders.Tests\SnakesAndLadders.Tests.csproj", "{2836DACA-F41D-4142-97CC-E320FF17E45C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnakesAndLadders.Tests", "Tests\SnakesAndLadders.Tests\SnakesAndLadders.Tests.csproj", "{2836DACA-F41D-4142-97CC-E320FF17E45C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnakesAndLadders.Backend.Contracts", "BackEnd\SnakesAndLadders.Backend.Contracts\SnakesAndLadders.Backend.Contracts.csproj", "{1BB20632-5691-4767-BF8C-6FD86509D5D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnakesAndLadders.BackEnd.Contracts", "BackEnd\SnakesAndLadders.Backend.Contracts\SnakesAndLadders.BackEnd.Contracts.csproj", "{1BB20632-5691-4767-BF8C-6FD86509D5D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnakesAndLadders.Backend.Services", "BackEnd\SnakesAndLadders.Backend.Services\SnakesAndLadders.Backend.Services.csproj", "{9600189B-F6C5-4AB1-AF60-B0B64DBA7EA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnakesAndLadders.BackEnd.Services", "BackEnd\SnakesAndLadders.Backend.Services\SnakesAndLadders.BackEnd.Services.csproj", "{9600189B-F6C5-4AB1-AF60-B0B64DBA7EA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
