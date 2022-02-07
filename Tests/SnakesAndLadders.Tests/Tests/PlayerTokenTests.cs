@@ -4,7 +4,7 @@ using SnakesAndLadders.BackEnd.Contracts.Services;
 using SnakesAndLadders.BackEnd.Services;
 using System;
 
-namespace SnakesAndLadders.Tests.US1
+namespace SnakesAndLadders.Tests
 {
     [TestClass]
     public class PlayerTokenTests

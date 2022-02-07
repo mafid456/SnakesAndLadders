@@ -3,7 +3,7 @@ using SnakesAndLadders.BackEnd.Contracts.Services;
 using SnakesAndLadders.BackEnd.Services;
 using SnakesAndLadders.Tests.Mocks;
 
-namespace SnakesAndLadders.Tests.US3
+namespace SnakesAndLadders.Tests
 {
     [TestClass]
     public class DiceTests
