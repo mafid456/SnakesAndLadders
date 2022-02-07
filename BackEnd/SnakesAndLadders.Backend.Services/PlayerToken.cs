@@ -36,8 +36,6 @@ namespace SnakesAndLadders.BackEnd.Services
 
             this.Position += tiles;
 
-            this.FixPositionIfPlayerIsAheadOfFinishTile();
-            this.JumpToTargetTileIfPlayerIsOnSnakeOrLadderTile();
             this.NotifyWinEventIfPlayerIsOnFinishTile();
         }
 
@@ -52,18 +50,6 @@ namespace SnakesAndLadders.BackEnd.Services
                 targetTileNumber = tile.jumpToTileNumber;
 
             return targetTileNumber > 0;
-        }
-
-        private void FixPositionIfPlayerIsAheadOfFinishTile()
-        {
-            if (this.Position > BoardConstants.FINISH_TILE_NUMBER)
-                this.Position = BoardConstants.FINISH_TILE_NUMBER - (this.Position - BoardConstants.FINISH_TILE_NUMBER);
-        }
-
-        private void JumpToTargetTileIfPlayerIsOnSnakeOrLadderTile()
-        {
-            if (this.IsCurrentPositionSnakeOrLadderTile(out int targetTileNumber))
-                this.Position = targetTileNumber;
         }
 
         private void NotifyWinEventIfPlayerIsOnFinishTile()
