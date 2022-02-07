@@ -122,6 +122,25 @@ namespace SnakesAndLadders.Tests.US1
 
             Assert.AreEqual(expectedPosition, this._playerToken.Position);
         }
+
+        [DataTestMethod]
+        [DataRow(2, 38)]
+        [DataRow(7, 14)]
+        [DataRow(8, 31)]
+        [DataRow(15, 26)]
+        [DataRow(28, 84)]
+        [DataRow(21, 42)]
+        [DataRow(36, 44)]
+        [DataRow(51, 67)]
+        [DataRow(78, 98)]
+        [DataRow(71, 91)]
+        [DataRow(87, 94)]
+        public void TestBottomLadderTiles(int bottomLadderTile, int expectedPosition)
+        {
+            this._playerToken.Move(--bottomLadderTile);
+
+            Assert.AreEqual(expectedPosition, this._playerToken.Position);
+        }
         #endregion
 
         #region Event listeners
