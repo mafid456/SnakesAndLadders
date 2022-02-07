@@ -45,6 +45,13 @@ namespace SnakesAndLadders.BackEnd
         void Initialize(int players);
 
         /// <summary>
+        /// Gets the player token position.
+        /// </summary>
+        /// <param name="playerIndex">Player token index.</param>
+        /// <returns>Returns the player token position in the board.</returns>
+        int GetPlayerTokenPosition(int playerIndex);
+
+        /// <summary>
         /// Gets the current player token data.
         /// </summary>
         /// <param name="position">Output parameter that returns the player position in the board.</param>

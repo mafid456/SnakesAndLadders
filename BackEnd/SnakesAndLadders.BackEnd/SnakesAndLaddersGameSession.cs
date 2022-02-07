@@ -49,6 +49,17 @@ namespace SnakesAndLadders.BackEnd
             this.Reset();
         }
 
+        public int GetPlayerTokenPosition(int playerIndex)
+        {
+            if (!this.IsInitialized)
+                throw SnakesAndLaddersGameSession.FormatGameSessionNotInitializedException(callerMethod: nameof(this.GetPlayerTokenPosition));
+
+            if (!this.IsPlayerIndexValid(playerIndex))
+                throw this.FormatOutOfRangePlayersIndexException(callerMethod: nameof(this.GetPlayerTokenPosition), argumentName: nameof(playerIndex), argumentValue: playerIndex);
+
+            return this._players[playerIndex].Position;
+        }
+
         public int GetCurrentPlayerIndex(out int position)
         {
             if (!this.IsInitialized)
@@ -131,6 +142,8 @@ namespace SnakesAndLadders.BackEnd
             return currentArrayIndex;
         }
 
+        private bool IsPlayerIndexValid(int index) => index > 0 && index <= this.PlayersCount;
+
         private static InvalidOperationException FormatGameSessionNotInitializedException(string callerMethod)
         {
             return new($"{FormatExceptionMessageHeader(callerMethod)}: The game session is not initialized yet. You must call {nameof(ISnakesAndLaddersGameSession.Initialize)}() method before start to play.");
@@ -139,6 +152,11 @@ namespace SnakesAndLadders.BackEnd
         private static ArgumentException FormatNegativePlayersNumberException(string callerMethod, string argumentName, int argumentValue)
         {
             return new($"{FormatExceptionMessageHeader(callerMethod)}: The \"{argumentName}\" argument must be value over zero ({argumentName}: {argumentValue}).");
+        }
+
+        private ArgumentException FormatOutOfRangePlayersIndexException(string callerMethod, string argumentName, int argumentValue)
+        {
+            return new($"{FormatExceptionMessageHeader(callerMethod)}: The \"{argumentName}\" argument must be value between 1 and {this.PlayersCount} ({argumentName}: {argumentValue}).");
         }
 
         private static string FormatExceptionMessageHeader(string callerMethodName) => $"{nameof(ISnakesAndLaddersGameSession)}::{callerMethodName}";
