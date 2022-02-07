@@ -23,13 +23,13 @@ namespace SnakesAndLadders.Tests.US1
         #endregion
 
         #region Tests
-        [TestMethod("UAT1: Given the game is started, when the token is placed on the board, then the token is on square 1")]
+        [TestMethod("US1-UAT1: Given the game is started, when the token is placed on the board, then the token is on square 1")]
         public void PlayerTokenIsOnFirstTile()
         {
             Assert.AreEqual(BoardConstants.START_TILE_NUMBER, this._playerToken.Position);
         }
 
-        [TestMethod("UAT2: Given the token is on square 1, when the token is moved 3 spaces, then the token is on square 4")]
+        [TestMethod("US1-UAT2: Given the token is on square 1, when the token is moved 3 spaces, then the token is on square 4")]
         public void MovePlayerToken3Tiles()
         {
             const int DICE_RESULT = 3;
@@ -40,7 +40,7 @@ namespace SnakesAndLadders.Tests.US1
             Assert.AreEqual(EXPECTED_POSITION, this._playerToken.Position);
         }
 
-        [TestMethod("UAT3: Given the token is on square 1, when the token is moved 3 spaces, and then it is moved 4 spaces, then the token is on square 8")]
+        [TestMethod("US1-UAT3: Given the token is on square 1, when the token is moved 3 spaces, and then it is moved 4 spaces, then the token is on square 8")]
         public void MovePlayerToken3TilesAndThen4Tiles()
         {
             int[] DICE_RESULTS = { 3, 4 };
