@@ -58,7 +58,7 @@ namespace SnakesAndLadders.Tests.Tests
 
                 Assert.AreEqual(expectedIndex, index, "The expected index not match with the received index.");
                 Assert.AreNotEqual(0, position, "The position can't be zero.");
-                
+
                 this._gameSession.PlayTurn();
 
                 if (++expectedIndex > MAX_PLAYERS)
@@ -110,6 +110,25 @@ namespace SnakesAndLadders.Tests.Tests
                     Assert.AreNotEqual(BoardTileTypes.Normal, result.arrivedTileType);
                 else
                     Assert.AreEqual(BoardTileTypes.Normal, result.arrivedTileType);
+            }
+        }
+
+        [TestMethod]
+        public void ResetGameSession()
+        {
+            const int MAX_PLAYERS = 4;
+
+            this._gameSession.Initialize(MAX_PLAYERS);
+
+            for (int i = 0; i < MAX_PLAYERS; i++)
+                this._gameSession.PlayTurn();
+
+            this._gameSession.Reset();
+
+            for (int i = 1; i < MAX_PLAYERS + 1; i++)
+            {
+                int position = this._gameSession.GetPlayerTokenPosition(i);
+                Assert.AreEqual(1, position);
             }
         }
         #endregion
