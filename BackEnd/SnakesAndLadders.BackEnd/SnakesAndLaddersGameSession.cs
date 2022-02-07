@@ -65,7 +65,9 @@ namespace SnakesAndLadders.BackEnd
             if (!this.IsInitialized)
                 throw SnakesAndLaddersGameSession.FormatGameSessionNotInitializedException(callerMethod: nameof(this.GetNextPlayerIndex));
 
-            IPlayerToken playerData = this.GetPlayerData(this._currentPlayerArrayIndex, out int playerIndex);
+            int nextPlayerIndex = this.UpdateCurrentPlayerArrayIndex(this._currentPlayerArrayIndex);
+
+            IPlayerToken playerData = this.GetPlayerData(nextPlayerIndex, out int playerIndex);
             position = playerData.Position;
 
             return playerIndex;
