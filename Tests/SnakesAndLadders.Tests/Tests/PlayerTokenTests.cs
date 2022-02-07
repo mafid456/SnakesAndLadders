@@ -50,11 +50,11 @@ namespace SnakesAndLadders.Tests.US1
             Assert.AreEqual(EXPECTED_POSITION, this._playerToken.Position);
         }
 
-        [TestMethod("US1-UAT3: Given the token is on square 1, when the token is moved 3 spaces, and then it is moved 4 spaces, then the token is on square 8")]
+        [TestMethod("US1-UAT3: Given the token is on square 1, when the token is moved 3 spaces, and then it is moved 5 spaces, then the token is on square 9")]
         public void MovePlayerToken3TilesAndThen4Tiles()
         {
-            int[] DICE_RESULTS = { 3, 4 };
-            const int EXPECTED_POSITION = 8;
+            int[] DICE_RESULTS = { 3, 5 };
+            const int EXPECTED_POSITION = 9;
 
             foreach (int diceResult in DICE_RESULTS)
                 this._playerToken.Move(diceResult);
@@ -86,13 +86,13 @@ namespace SnakesAndLadders.Tests.US1
             Assert.IsTrue(this._hasPlayerWinTheGame);
         }
 
-        [TestMethod("US2-UAT2: Given the token is on square 97, when the token is moved 4 spaces, then the token is on square 99, and the player has not won the game")]
+        [TestMethod("US2-UAT2: Given the token is on square 97, when the token is moved 5 spaces, then the token is on square 98, and the player has not won the game")]
         public void MovePlayerToken4TilesFromTile97()
         {
             const int CURRENT_POSITION = 97;
-            const int DICE_RESULT = 4;
-            const int EXPECTED_POSITION = 99;
-            /* NOTE: The original UAT specifies 97 instead of 99. I'm not sure if is a typo, or a specific rule of this game, but in other board games like this (Parchis 
+            const int DICE_RESULT = 5;
+            const int EXPECTED_POSITION = 98;
+            /* NOTE: The original UAT specifies 97 instead of 98. I'm not sure if is a typo, or a specific rule of this game, but in other board games like this (Parchis 
              * or the Game of the Goose) the behaviour when you pass ahead of the end of the board, the rest of moves are counting in backward, like if the player token 
              * bounce at the end of the board. I took the liberty to implement this behaviour instead of discard the movement (that I presume that was the UAT expected). */
 
@@ -103,6 +103,43 @@ namespace SnakesAndLadders.Tests.US1
 
             Assert.AreEqual(EXPECTED_POSITION, this._playerToken.Position);
             Assert.IsFalse(this._hasPlayerWinTheGame);
+        }
+
+        [DataTestMethod]
+        [DataRow(16, 6)]
+        [DataRow(46, 25)]
+        [DataRow(49, 11)]
+        [DataRow(62, 19)]
+        [DataRow(64, 60)]
+        [DataRow(74, 53)]
+        [DataRow(89, 68)]
+        [DataRow(92, 88)]
+        [DataRow(95, 75)]
+        [DataRow(99, 80)]
+        public void TestSnakeHeadTiles(int snakeHeadTile, int expectedPosition)
+        {
+            this._playerToken.Move(--snakeHeadTile);
+
+            Assert.AreEqual(expectedPosition, this._playerToken.Position);
+        }
+
+        [DataTestMethod]
+        [DataRow(2, 38)]
+        [DataRow(7, 14)]
+        [DataRow(8, 31)]
+        [DataRow(15, 26)]
+        [DataRow(28, 84)]
+        [DataRow(21, 42)]
+        [DataRow(36, 44)]
+        [DataRow(51, 67)]
+        [DataRow(78, 98)]
+        [DataRow(71, 91)]
+        [DataRow(87, 94)]
+        public void TestBottomLadderTiles(int bottomLadderTile, int expectedPosition)
+        {
+            this._playerToken.Move(--bottomLadderTile);
+
+            Assert.AreEqual(expectedPosition, this._playerToken.Position);
         }
         #endregion
 
