@@ -55,6 +55,7 @@ namespace SnakesAndLadders.BackEnd
         {
             InternalServiceManager.AddSingletonService<IBoard, Board>();
             InternalServiceManager.AddService<IPlayerToken, PlayerToken>();
+            InternalServiceManager.AddSingletonService<IDice, Dice>();
         }
         #endregion
     }
