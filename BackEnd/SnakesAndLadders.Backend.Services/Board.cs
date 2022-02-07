@@ -46,6 +46,7 @@ namespace SnakesAndLadders.BackEnd.Services
             this.SetSnakeHead(tileNumber: 62, targetNumber: 19);
             this.SetSnakeHead(tileNumber: 64, targetNumber: 60);
             this.SetBottomLadder(tileNumber: 71, targetNumber: 91);
+            this.SetSnakeHead(tileNumber: 74, targetNumber: 53);
             this.SetBottomLadder(tileNumber: 78, targetNumber: 98);
             this.SetBottomLadder(tileNumber: 87, targetNumber: 94);
             this.SetSnakeHead(tileNumber: 89, targetNumber: 68);
