@@ -57,7 +57,7 @@ namespace SnakesAndLadders.BackEnd
             if (!this.IsPlayerIndexValid(playerIndex))
                 throw this.FormatOutOfRangePlayersIndexException(callerMethod: nameof(this.GetPlayerTokenPosition), argumentName: nameof(playerIndex), argumentValue: playerIndex);
 
-            return this._players[playerIndex].Position;
+            return this._players[--playerIndex].Position;
         }
 
         public int GetCurrentPlayerIndex(out int position)
