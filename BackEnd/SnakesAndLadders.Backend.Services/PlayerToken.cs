@@ -6,7 +6,7 @@ using System;
 
 namespace SnakesAndLadders.BackEnd.Services
 {
-    internal class PlayerToken : IPlayerToken
+    public class PlayerToken : IPlayerToken
     {
         #region Internal vars
         private readonly IBoard _board;
@@ -20,11 +20,13 @@ namespace SnakesAndLadders.BackEnd.Services
         public event Action OnPlayerWins;
         #endregion
 
+        #region Constructors
         public PlayerToken(IBoard board)
         {
             this._board = board;
             this.Reset();
         }
+        #endregion
 
         #region Methods & Functions
         public void Move(int tiles)

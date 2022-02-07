@@ -13,4 +13,10 @@
     <PackageReference Include="coverlet.collector" Version="3.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\BackEnd\SnakesAndLadders.Backend.Contracts\SnakesAndLadders.Backend.Contracts.csproj" />
+    <ProjectReference Include="..\..\BackEnd\SnakesAndLadders.Backend.Services\SnakesAndLadders.Backend.Services.csproj" />
+    <ProjectReference Include="..\..\BackEnd\SnakesAndLadders.BackEnd\SnakesAndLadders.BackEnd.csproj" />
+  </ItemGroup>
+
 </Project>
