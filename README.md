@@ -8,7 +8,7 @@
 
 An implementation of the [Snakes and Ladders](https://en.wikipedia.org/wiki/Snakes_and_ladders) board game, as a simple backend with a basic terminal frontend implementation, developed in .NET 5.0 with C#.
 
-The game backend is developed as and independent service, able to use with any kind of frontend as you want.
+The game backend is developed as an independent service, able to use with any kind of frontend as you want.
 
 The project is totally platform independent with a minimal dependencies. You can compile the project for Windows, Linux or Mac.
 
