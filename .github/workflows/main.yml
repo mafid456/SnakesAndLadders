@@ -3,9 +3,9 @@ name: CI/CD - Snakes and Ladders
 on:
   push:
     branches:
-      - master   # ✅ Triggers only on pushes to the master branch
+      - master
   pull_request:
-  workflow_dispatch:   # ✅ Allows manual trigger from the GitHub Actions page
+  workflow_dispatch:
 
 jobs:
   build:
@@ -23,19 +23,23 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
+      # ✅ Navigate into each project folder before restoring/building
       - name: Restore dependencies
-        run: dotnet restore ${{ matrix.project }}
+        working-directory: ${{ matrix.project }}
+        run: dotnet restore
 
-      - name: Build
-        run: dotnet build ${{ matrix.project }} --configuration Release --no-restore
+      - name: Build project
+        working-directory: ${{ matrix.project }}
+        run: dotnet build --configuration Release --no-restore
 
+      # ✅ Adjust this to your actual test folder name
       - name: Run tests
         run: dotnet test SnakesAndLadders.Tests --no-build --verbosity normal
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref == 'refs/heads/master'   # ✅ Ensures deploy only runs on master
+    if: github.ref == 'refs/heads/master'
 
     steps:
       - name: Checkout code
